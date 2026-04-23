@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  DRIVER
+  ADMIN
+}
+
+enum ReportType {
+  PICKUP
+  DROP
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  username     String   @unique
+  passwordHash String   @map("password_hash")
+  role         Role     @default(DRIVER)
+  vehicleId    String?  @map("vehicle_id")
+  vehicle      Vehicle? @relation(fields: [vehicleId], references: [id])
+  reports      Report[]
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+model Vehicle {
+  id          String   @id @default(cuid())
+  plateNumber String   @unique @map("plate_number")
+  type        String
+  isActive    Boolean  @default(true) @map("is_active")
+  users       User[]
+  reports     Report[]
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("vehicles")
+}
+
+model Report {
+  id              String      @id @default(cuid())
+  userId          String      @map("user_id")
+  user            User        @relation(fields: [userId], references: [id])
+  vehicleId       String      @map("vehicle_id")
+  vehicle         Vehicle     @relation(fields: [vehicleId], references: [id])
+  reportType      ReportType  @map("report_type")
+  originCity      String      @map("origin_city")
+  destinationCity String      @map("destination_city")
+  latitude        Float
+  longitude       Float
+  locationName    String?     @map("location_name")
+  accuracy        Float?
+  notes           String?     @db.Text
+  photos          ReportPhoto[]
+  createdAt       DateTime    @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@index([vehicleId])
+  @@index([createdAt])
+  @@map("reports")
+}
+
+model ReportPhoto {
+  id             String   @id @default(cuid())
+  reportId       String   @map("report_id")
+  report         Report   @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  filePath       String   @map("file_path")
+  originalSize   Int      @map("original_size")
+  compressedSize Int      @map("compressed_size")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  @@index([reportId])
+  @@map("report_photos")
+}
