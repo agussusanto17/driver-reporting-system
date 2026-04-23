@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "npx prisma migrate deploy && next build",
-    "start": "next start",
+    "start": "node server.js",
     "lint": "next lint",
     "db:migrate": "npx prisma migrate dev",
     "db:push": "npx prisma db push",
