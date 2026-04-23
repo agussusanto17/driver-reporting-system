@@ -1,10 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: "standalone",
   images: {
     remotePatterns: [],
   },
-  // Ensure uploads directory is not processed by Next.js
   serverExternalPackages: ["bcryptjs"],
 };
 
