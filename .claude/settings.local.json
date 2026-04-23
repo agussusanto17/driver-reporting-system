@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C \"/Users/agussusanto/Documents/SANTO/Truckinc Mobile/2026/driver-reporting-system\" remote -v)",
+      "Bash(git -C \"/Users/agussusanto/Documents/SANTO/Truckinc Mobile/2026/driver-reporting-system\" remote get-url origin)",
+      "Bash(git -C \"/Users/agussusanto/Documents/SANTO/Truckinc Mobile/2026/driver-reporting-system\" push -u origin main)",
+      "Bash(command -v nvm)",
+      "Bash(mysql --version)",
+      "Bash(brew services *)",
+      "Bash(brew install *)"
+    ]
+  }
+}
