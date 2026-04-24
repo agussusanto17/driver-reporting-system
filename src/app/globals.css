@@ -1,13 +1,37 @@
 @import "tailwindcss";
 
-:root {
-  --color-primary: #1a5276;
-  --color-primary-light: #d4e6f1;
-  --color-accent: #2980b9;
-  --color-success: #27ae60;
-  --color-warning: #f39c12;
-  --color-danger: #e74c3c;
-  --color-gray-dark: #2c3e50;
-  --color-gray-med: #7f8c8d;
-  --color-gray-light: #f4f6f7;
+@theme {
+  /* Primary - Truckinc Deep Navy */
+  --color-primary: #051E4B;
+  --color-primary-600: #0A2E72;
+  --color-primary-400: #1A4A9E;
+  --color-primary-100: #E5ECF8;
+
+  /* Accent - Truckinc Gold */
+  --color-accent: #E2B746;
+  --color-accent-600: #C9A33D;
+  --color-accent-400: #ECC96B;
+  --color-accent-100: #FBF3D9;
+
+  /* Semantic */
+  --color-success: #16A34A;
+  --color-warning: #EAB308;
+  --color-danger: #DC2626;
+  --color-info: #2563EB;
+
+  /* Neutral */
+  --color-gray-900: #111827;
+  --color-gray-600: #4B5563;
+  --color-gray-400: #9CA3AF;
+  --color-gray-200: #E5E7EB;
+  --color-gray-100: #F3F4F6;
+  --color-white: #FFFFFF;
+
+  /* Font */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+* {
+  font-family: var(--font-sans);
+  border-radius: 0 !important;
 }

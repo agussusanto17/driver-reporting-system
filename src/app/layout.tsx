@@ -1,5 +1,12 @@
 import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Driver Reporting System",
@@ -11,7 +18,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
-  themeColor: "#1a5276",
+  themeColor: "#051E4B",
 };
 
 export default function RootLayout({
@@ -21,7 +28,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id">
-      <body className="bg-gray-50 text-gray-900 antialiased">{children}</body>
+      <body className={`${inter.className} bg-[#F3F4F6] text-[#111827] antialiased`}>
+        {children}
+      </body>
     </html>
   );
 }

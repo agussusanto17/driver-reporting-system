@@ -86,7 +86,7 @@ Dokumen ini mendefinisikan kebutuhan **Driver Reporting System** yang terdiri da
 |---|---|---|---|
 | US-01 | Sebagai driver, saya ingin login agar laporan tercatat atas nama saya | Login username/password. Session persist hingga logout. Tampil nama & nopol setelah login. | Must Have |
 | US-02 | Sebagai driver, saya ingin buat laporan perjalanan dengan detail rute | Input: Nopol (pre-filled), Tipe (Pickup/Drop), Kota Asal, Kota Tujuan, Keterangan (opsional). Support multiple tujuan dalam 1 perjalanan. | Must Have |
-| US-03 | Sebagai driver, saya ingin upload foto muatan sebagai bukti | Foto dari kamera atau galeri. Kompresi otomatis < 500KB. Preview sebelum submit. Min 1 foto wajib. | Must Have |
+| US-03 | Sebagai driver, saya ingin upload foto muatan sebagai bukti | Foto dari kamera atau galeri. Kompresi otomatis < 300KB. Preview sebelum submit. Min 1 foto wajib. | Must Have |
 | US-04 | Sebagai driver, saya ingin lokasi otomatis tercatat saat lapor | Tombol submit **TERKUNCI** jika GPS off. Pesan: "Aktifkan GPS untuk mengirim laporan". Koordinat lat/long auto-save. Nama lokasi (reverse geocoding) ditampilkan. | Must Have |
 | US-05 | Sebagai driver, saya ingin lihat riwayat laporan saya | List urut terbaru. Tampil tanggal, tipe, rute. Tap untuk detail & foto. | Should Have |
 
@@ -129,7 +129,7 @@ Dokumen ini mendefinisikan kebutuhan **Driver Reporting System** yang terdiri da
 | ID | Requirement |
 |---|---|
 | FR-11 | Ambil foto dari kamera (input capture) atau pilih galeri |
-| FR-12 | Kompresi otomatis client-side, target < 500KB (canvas API / browser-image-compression) |
+| FR-12 | Kompresi otomatis client-side, target < 300KB (canvas API / browser-image-compression) |
 | FR-13 | Format output: JPEG quality 0.6–0.8 |
 | FR-14 | Min 1 foto wajib, max 5 foto per laporan |
 | FR-15 | Preview thumbnail + opsi hapus/ganti sebelum submit |
@@ -188,7 +188,7 @@ Stack telah diputuskan berdasarkan constraint shared hosting dengan Node.js supp
 | **File Storage** | Local Filesystem (server disk) | Simpan di `/uploads/[tahun]/[bulan]/[tanggal]/`. Estimasi ~3.5GB/bulan. Zero cost |
 | **Peta** | Leaflet.js + OpenStreetMap | Gratis, tanpa API key |
 | **Export Excel** | SheetJS (xlsx) | Client-side export, ringan |
-| **Kompresi Foto** | browser-image-compression | Client-side, target < 500KB per foto |
+| **Kompresi Foto** | browser-image-compression | Client-side, target < 300KB per foto |
 | **PWA** | next-pwa / Serwist | Installable (A2HS), Service Worker, offline indicator |
 | **Reverse Geocoding** | OpenStreetMap Nominatim | Gratis, open-source, dipanggil client-side |
 
@@ -224,7 +224,7 @@ uploads/                   # Photo storage (gitignored)
 | Server | Shared hosting dengan Node.js support |
 | Database | MySQL bawaan hosting (gratis) |
 | File Storage | Local disk server — folder `/uploads/` harus persistent (tidak ke-reset saat deploy ulang) |
-| Estimasi Disk | ~125MB/hari (50 driver × 5 laporan × 500KB foto). ~3.5GB/bulan |
+| Estimasi Disk | ~125MB/hari (50 driver × 5 laporan × 300KB foto). ~3.5GB/bulan |
 | Backup | Pastikan folder `/uploads/` ikut ter-backup oleh hosting |
 | Biaya Tambahan | **Rp 0** — semua library dan service gratis / open-source |
 
@@ -322,3 +322,238 @@ uploads/                   # Photo storage (gitignored)
 | 3 | Driver bisa berganti kendaraan (ganti nopol)? | Klarifikasi proses ops |
 | 4 | Perlu fitur komentar admin ke laporan driver? | Masuk Phase 2? |
 | 5 | ~~Hosting: cloud (AWS/GCP) atau on-premise?~~ | **DECIDED** — Shared hosting + Node.js + MySQL + local disk |
+
+---
+
+## 14. Design System
+
+Design system mengacu pada branding [truckinc.id](https://truckinc.id/) — memastikan konsistensi visual antara website perusahaan dan aplikasi internal.
+
+### 14.1 Color Palette
+
+**Primary Colors — derived from Truckinc brand identity:**
+
+| Token | Hex | Penggunaan |
+|---|---|---|
+| `--color-primary` | `#051E4B` | Deep navy — header, sidebar admin, teks utama. Warna dominan brand Truckinc |
+| `--color-primary-600` | `#0A2E72` | Hover state untuk elemen primary |
+| `--color-primary-400` | `#1A4A9E` | Active state, secondary navigation |
+| `--color-primary-100` | `#E5ECF8` | Background ringan, card hover state |
+
+**Accent Colors — Truckinc gold:**
+
+| Token | Hex | Penggunaan |
+|---|---|---|
+| `--color-accent` | `#E2B746` | Gold — CTA buttons, badge, indikator penting. Warna aksen utama dari brand Truckinc |
+| `--color-accent-600` | `#C9A33D` | Hover state accent |
+| `--color-accent-400` | `#ECC96B` | Lighter accent untuk highlight |
+| `--color-accent-100` | `#FBF3D9` | Background accent ringan |
+
+**Semantic Colors:**
+
+| Token | Hex | Penggunaan |
+|---|---|---|
+| `--color-success` | `#16A34A` | Laporan berhasil terkirim, GPS aktif, status aktif |
+| `--color-warning` | `#EAB308` | Akurasi GPS rendah, warning state |
+| `--color-danger` | `#DC2626` | GPS off / error, validasi gagal, hapus data |
+| `--color-info` | `#2563EB` | Informasi, link, laporan baru masuk |
+
+**Neutral Colors:**
+
+| Token | Hex | Penggunaan |
+|---|---|---|
+| `--color-gray-900` | `#111827` | Heading text, body text utama |
+| `--color-gray-600` | `#4B5563` | Secondary text, label form |
+| `--color-gray-400` | `#9CA3AF` | Placeholder, disabled text, caption |
+| `--color-gray-200` | `#E5E7EB` | Border, divider |
+| `--color-gray-100` | `#F3F4F6` | Background halaman, card background admin |
+| `--color-white` | `#FFFFFF` | Card, form, content area |
+
+### 14.2 Typography
+
+| Elemen | Font | Weight | Size | Catatan |
+|---|---|---|---|---|
+| Heading 1 (page title) | Inter | 700 (Bold) | 24px / 1.5rem | Digunakan di judul halaman |
+| Heading 2 (section title) | Inter | 600 (Semibold) | 20px / 1.25rem | Section header, card title |
+| Heading 3 (sub-section) | Inter | 600 (Semibold) | 16px / 1rem | Sub-section, label group |
+| Body | Inter | 400 (Regular) | 14px / 0.875rem | Default body text |
+| Body Small | Inter | 400 (Regular) | 12px / 0.75rem | Caption, meta info, timestamp |
+| Label / Form | Inter | 500 (Medium) | 14px / 0.875rem | Form label, table header |
+| Button | Inter | 600 (Semibold) | 14px / 0.875rem | Button text, CTA |
+
+> **Font Stack:** `'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif`
+> Inter dipilih karena legibility tinggi di layar kecil (mobile driver) dan tersedia gratis via Google Fonts.
+
+### 14.3 Spacing System
+
+Menggunakan skala 4px base unit, konsisten dengan Tailwind CSS default:
+
+| Token | Value | Penggunaan |
+|---|---|---|
+| `space-1` | 4px | Jarak antar inline element |
+| `space-2` | 8px | Padding kecil, gap antar icon & text |
+| `space-3` | 12px | Padding dalam form input |
+| `space-4` | 16px | Padding card, jarak antar form field |
+| `space-5` | 20px | Section margin internal |
+| `space-6` | 24px | Jarak antar section |
+| `space-8` | 32px | Page padding horizontal |
+
+### 14.4 Border Radius
+
+**No radius** — Seluruh elemen menggunakan sudut tajam (0px). Keputusan desain untuk konsistensi visual yang tegas sesuai brand Truckinc.
+
+### 14.5 Shadow / Elevation
+
+| Token | Value | Penggunaan |
+|---|---|---|
+| `shadow-sm` | `0 1px 2px rgba(0,0,0,0.05)` | Card default, input focus |
+| `shadow-md` | `0 4px 6px rgba(0,0,0,0.07)` | Dropdown, popover, elevated card |
+| `shadow-lg` | `0 10px 15px rgba(0,0,0,0.1)` | Modal, bottom sheet, floating button |
+
+### 14.6 Component Styles
+
+#### Buttons
+
+| Variant | Background | Text | Border | Penggunaan |
+|---|---|---|---|---|
+| **Primary** | `--color-accent` (#E8731A) | White | none | CTA utama: "Kirim Laporan", "Export Excel" |
+| **Secondary** | White | `--color-primary` | 1px `--color-gray-200` | Aksi sekunder: "Batal", "Lihat Riwayat" |
+| **Danger** | `--color-danger` | White | none | Hapus data, aksi destruktif |
+| **Ghost** | Transparent | `--color-gray-600` | none | Icon button, action minor |
+| **Disabled** | `--color-gray-200` | `--color-gray-400` | none | Submit terkunci (GPS off) |
+
+> Button height: **44px minimum** (mobile touch target sesuai WCAG). Padding horizontal: 16px–24px.
+
+#### Form Input
+
+| Property | Value |
+|---|---|
+| Height | 44px (mobile), 40px (desktop) |
+| Background | White |
+| Border | 1px solid `--color-gray-200` |
+| Border (focus) | 2px solid `--color-accent` |
+| Border (error) | 2px solid `--color-danger` |
+| Border radius | `radius-sm` (6px) |
+| Padding | 12px horizontal |
+| Font | 14px, `--color-gray-900` |
+| Placeholder | `--color-gray-400` |
+
+#### Card (Laporan)
+
+| Property | Driver App | Dashboard Admin |
+|---|---|---|
+| Background | White | White |
+| Border | 1px solid `--color-gray-200` | 1px solid `--color-gray-200` |
+| Border radius | `radius-lg` (12px) | `radius-md` (8px) |
+| Padding | 16px | 16px–20px |
+| Shadow | `shadow-sm` | `shadow-sm` |
+| Badge Pickup | `--color-info` background | `--color-info` background |
+| Badge Drop | `--color-success` background | `--color-success` background |
+| Indikator baru | — | Left border 3px `--color-accent` |
+
+#### Navigation
+
+**PWA Driver (Bottom Navigation):**
+
+| Property | Value |
+|---|---|
+| Height | 56px |
+| Background | White |
+| Border top | 1px solid `--color-gray-200` |
+| Icon size | 24px |
+| Icon (inactive) | `--color-gray-400` |
+| Icon (active) | `--color-accent` |
+| Label | 10px, medium weight |
+| Items | Beranda, Buat Laporan, Riwayat, Profil |
+
+**Dashboard Admin (Sidebar):**
+
+| Property | Value |
+|---|---|
+| Width | 240px (desktop), collapsed 64px |
+| Background | `--color-primary` (#0F1B2D) |
+| Text | White, opacity 0.7 (inactive), 1.0 (active) |
+| Active item | Background `--color-primary-600`, left border 3px `--color-accent` |
+| Logo | Truckinc logo di top sidebar |
+
+### 14.7 Iconography
+
+| Property | Value |
+|---|---|
+| Library | Lucide Icons (open-source, MIT license) |
+| Stroke width | 1.5px (default) |
+| Size (mobile nav) | 24px |
+| Size (inline/button) | 16px–20px |
+| Color | Mengikuti warna teks kontainer |
+
+Icon yang digunakan (referensi Lucide):
+- **Buat Laporan:** `plus-circle`
+- **Pickup:** `package-plus`
+- **Drop:** `package-check`
+- **GPS On:** `map-pin` (success)
+- **GPS Off:** `map-pin-off` (danger)
+- **Kamera:** `camera`
+- **Riwayat:** `clock`
+- **Filter:** `filter`
+- **Export:** `download`
+- **Peta:** `map`
+- **Truck/Kendaraan:** `truck`
+- **Driver/User:** `user`
+- **Logout:** `log-out`
+
+### 14.8 Responsive Breakpoints
+
+| Token | Width | Target |
+|---|---|---|
+| `mobile` | 0 – 639px | PWA Driver (primary viewport) |
+| `tablet` | 640px – 1023px | Dashboard admin mobile/tablet |
+| `desktop` | 1024px+ | Dashboard admin primary viewport |
+
+### 14.9 Status Colors & States (GPS)
+
+Karena GPS enforcement adalah fitur krusial, berikut mapping visual yang konsisten:
+
+| State | Color | Icon | UI Behavior |
+|---|---|---|---|
+| GPS Aktif + Akurasi baik (≤100m) | `--color-success` | `map-pin` + checkmark | Tampilkan nama lokasi, tombol submit enabled |
+| GPS Aktif + Akurasi rendah (>100m) | `--color-warning` | `map-pin` + warning | Tampilkan warning banner, tombol submit tetap enabled |
+| GPS Tidak Aktif / Ditolak | `--color-danger` | `map-pin-off` | Tampilkan error banner full-width, tombol submit disabled + grayed out |
+| Sedang mendapatkan lokasi | `--color-info` | Loading spinner | Tampilkan "Mendapatkan lokasi..." |
+
+### 14.10 Tailwind CSS Configuration
+
+```css
+/* globals.css */
+@import "tailwindcss";
+
+@theme {
+  /* Primary - Truckinc Deep Navy */
+  --color-primary: #051E4B;
+  --color-primary-600: #0A2E72;
+  --color-primary-400: #1A4A9E;
+  --color-primary-100: #E5ECF8;
+
+  /* Accent - Truckinc Gold */
+  --color-accent: #E2B746;
+  --color-accent-600: #C9A33D;
+  --color-accent-400: #ECC96B;
+  --color-accent-100: #FBF3D9;
+
+  /* Semantic */
+  --color-success: #16A34A;
+  --color-warning: #EAB308;
+  --color-danger: #DC2626;
+  --color-info: #2563EB;
+
+  /* Font */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+```
+
+### 14.11 Design Principles
+
+1. **Mobile-first, thumb-friendly** — Semua elemen interaktif minimal 44px touch target. Driver menggunakan app di perjalanan, sering dengan satu tangan.
+2. **Minimal steps** — Maksimal 3 tap dari buka app sampai laporan terkirim. Kurangi input manual, perbanyak pre-fill dan auto-detect.
+3. **Clear feedback** — Setiap aksi punya feedback visual yang jelas (success toast, loading state, error banner). Driver harus tahu apakah laporan sudah terkirim tanpa ragu.
+4. **Brand consistency** — Warna dan tone mengikuti identitas Truckinc (navy + orange). App terasa sebagai bagian dari ekosistem perusahaan, bukan tool generik.
+5. **Accessibility** — Contrast ratio minimal 4.5:1 untuk text. Semua warna semantic tidak hanya mengandalkan warna (ada icon/text pendukung).

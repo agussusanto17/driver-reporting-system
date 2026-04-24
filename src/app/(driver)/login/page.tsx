@@ -3,6 +3,7 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Truck, AlertCircle } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -34,66 +35,64 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[var(--color-primary)] px-4">
-      <div className="w-full max-w-sm bg-white rounded-2xl shadow-lg p-8">
+    <div className="min-h-screen flex items-center justify-center bg-primary px-4">
+      <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-[var(--color-primary-light)] rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg className="w-8 h-8 text-[var(--color-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
-            </svg>
+          <div className="w-16 h-16 bg-accent flex items-center justify-center mx-auto mb-4 shadow-lg">
+            <Truck size={32} strokeWidth={1.5} className="text-white" />
           </div>
-          <h1 className="text-xl font-bold text-[var(--color-gray-dark)]">
-            Driver Report
-          </h1>
-          <p className="text-sm text-[var(--color-gray-med)] mt-1">
-            Masuk untuk mulai laporan
-          </p>
+          <h1 className="text-2xl font-bold text-white">Truckinc</h1>
+          <p className="text-sm text-white/60 mt-1">Driver Reporting System</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {error && (
-            <div className="bg-red-50 text-[var(--color-danger)] text-sm p-3 rounded-lg">
-              {error}
+        <div className="bg-white shadow-lg p-6">
+          <h2 className="text-lg font-semibold text-gray-900 mb-5">Masuk ke Akun</h2>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {error && (
+              <div className="flex items-center gap-2 bg-red-50 text-danger text-sm p-3 border border-red-100">
+                <AlertCircle size={16} strokeWidth={1.5} className="shrink-0" />
+                {error}
+              </div>
+            )}
+
+            <div>
+              <label className="block text-sm font-medium text-gray-600 mb-1.5">
+                Username
+              </label>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="w-full h-11 px-3 border border-gray-200 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-colors"
+                placeholder="Masukkan username"
+                required
+              />
             </div>
-          )}
 
-          <div>
-            <label className="block text-sm font-medium text-[var(--color-gray-dark)] mb-1">
-              Username
-            </label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-transparent"
-              placeholder="Masukkan username"
-              required
-            />
-          </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-600 mb-1.5">
+                Password
+              </label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full h-11 px-3 border border-gray-200 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-colors"
+                placeholder="Masukkan password"
+                required
+              />
+            </div>
 
-          <div>
-            <label className="block text-sm font-medium text-[var(--color-gray-dark)] mb-1">
-              Password
-            </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-transparent"
-              placeholder="Masukkan password"
-              required
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3 bg-[var(--color-primary)] text-white font-semibold rounded-lg hover:bg-[var(--color-accent)] transition-colors disabled:opacity-50"
-          >
-            {loading ? "Memproses..." : "Masuk"}
-          </button>
-        </form>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full h-11 bg-accent text-white text-sm font-semibold hover:bg-accent-600 transition-colors disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed mt-2"
+            >
+              {loading ? "Memproses..." : "Masuk"}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
