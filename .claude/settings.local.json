@@ -23,7 +23,20 @@
       "Bash(python3 -c ' *)",
       "Bash(python3 -c \" import sys, json lines = sys.stdin.readlines\\(\\) for line in lines[-10:]: try: d = json.loads\\(line.strip\\(\\)\\) print\\(d.get\\('timestamp',''\\), d.get\\('level',''\\), d.get\\('message',''\\)[:100]\\) except: pass \")",
       "Bash(npx tsc *)",
-      "Bash(python3 -c \" import sys, json lines = sys.stdin.readlines\\(\\) for line in lines[-5:]: try: d = json.loads\\(line.strip\\(\\)\\) print\\(d.get\\('timestamp',''\\), d.get\\('level',''\\), d.get\\('message',''\\)[:80]\\) except: pass \")"
+      "Bash(python3 -c \" import sys, json lines = sys.stdin.readlines\\(\\) for line in lines[-5:]: try: d = json.loads\\(line.strip\\(\\)\\) print\\(d.get\\('timestamp',''\\), d.get\\('level',''\\), d.get\\('message',''\\)[:80]\\) except: pass \")",
+      "Bash(ssh -o StrictHostKeyChecking=no -p 65002 u328792953@145.79.14.114 \"echo connected && whoami && pwd\")",
+      "Bash(sshpass -p 'hello@Truckinc123' ssh -o StrictHostKeyChecking=no -p 65002 u328792953@145.79.14.114 \"echo connected && whoami && pwd\")",
+      "Bash(sshpass -p 'hello@Truckinc123' ssh -o StrictHostKeyChecking=no -p 65002 u328792953@145.79.14.114 \"echo connected && whoami && pwd && ls\")",
+      "Bash(sshpass -p 'hello@Truckinc123' ssh -o StrictHostKeyChecking=no -p 65002 u328792953@145.79.14.114 \"ls domains/ && echo '---' && cat ~/.my.cnf 2>/dev/null || echo 'no .my.cnf'\")",
+      "Bash(sshpass -p 'hello@Truckinc123' ssh -o StrictHostKeyChecking=no -p 65002 u328792953@145.79.14.114 \"ls domains/driver.truckinc.id/ && echo '---' && find domains/driver.truckinc.id -name '.env' 2>/dev/null\")",
+      "Bash(sshpass -p 'hello@Truckinc123' ssh -o StrictHostKeyChecking=no -p 65002 u328792953@145.79.14.114 \"cat domains/driver.truckinc.id/public_html/.builds/config/.env\")",
+      "Bash(sshpass -p 'hello@Truckinc123' ssh -o StrictHostKeyChecking=no -p 65002 u328792953@145.79.14.114 \"mysql -h srv1986.hstgr.io -u u328792953_trucincdrive -pDriverReport2026 u328792953_driverreport -e 'SHOW TABLES;' 2>/dev/null\")",
+      "Bash(sshpass -p 'hello@Truckinc123' ssh -o StrictHostKeyChecking=no -p 65002 u328792953@145.79.14.114 \"mysql -h srv1986.hstgr.io -u u328792953_trucincdrive -pDriverReport2026 u328792953_driverreport -e 'SELECT id, name, username, role FROM users; SELECT id, plate_number, type FROM vehicles;' 2>/dev/null\")",
+      "Bash(sshpass -p 'hello@Truckinc123' ssh -o StrictHostKeyChecking=no -p 65002 u328792953@145.79.14.114 \"ls domains/driver.truckinc.id/nodejs/\")",
+      "Bash(sshpass -p *)",
+      "Bash(node -e ' *)",
+      "Bash(curl -sI \"https://driver.truckinc.id/_next/static/chunks/0yv_2rnb-gth5.css\")",
+      "Bash(curl -s \"https://driver.truckinc.id/login\")"
     ]
   }
 }

@@ -29,6 +29,35 @@ declare module "next-auth/jwt" {
   }
 }
 
+// API response shapes
+export interface ReportPhoto {
+  id: string;
+  filePath: string;
+}
+
+export interface ReportSummary {
+  id: string;
+  reportType: "PICKUP" | "DROP";
+  originCity: string;
+  destinationCity: string;
+  locationName: string | null;
+  latitude: number;
+  longitude: number;
+  accuracy: number | null;
+  notes: string | null;
+  createdAt: string;
+  user: { id: string; name: string };
+  vehicle: { plateNumber: string };
+  photos: ReportPhoto[];
+}
+
+export interface ReportsResponse {
+  reports: ReportSummary[];
+  total: number;
+  page: number;
+  limit: number;
+}
+
 // Report form data
 export interface ReportFormData {
   reportType: "PICKUP" | "DROP";
