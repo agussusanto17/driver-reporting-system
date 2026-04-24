@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { readFile } from "fs/promises";
+import { toAbsolutePath } from "@/lib/upload";
 import path from "path";
 
 // GET /api/uploads/[...path] — serve uploaded files
@@ -9,15 +10,16 @@ export async function GET(
 ) {
   try {
     const { path: pathSegments } = await params;
-    const filePath = path.join(process.cwd(), "uploads", ...pathSegments);
+    const relativePath = pathSegments.join("/");
+    const filePath = toAbsolutePath(relativePath);
 
     // Security: prevent directory traversal
-    const resolved = path.resolve(filePath);
-    if (!resolved.startsWith(path.resolve(process.cwd(), "uploads"))) {
+    const uploadsRoot = toAbsolutePath("");
+    if (!path.resolve(filePath).startsWith(path.resolve(uploadsRoot))) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
-    const file = await readFile(resolved);
+    const file = await readFile(filePath);
 
     return new NextResponse(file, {
       headers: {

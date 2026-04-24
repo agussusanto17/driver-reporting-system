@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { ensureUploadDir, generateFileName } from "@/lib/upload";
+import { ensureUploadDir, generateFileName, toRelativePath } from "@/lib/upload";
 import { writeFile } from "fs/promises";
 import path from "path";
 
@@ -126,7 +126,7 @@ export async function POST(req: NextRequest) {
 
       photoRecords.push({
         reportId: report.id,
-        filePath: filePath.replace(process.cwd(), ""),
+        filePath: toRelativePath(filePath),
         originalSize: photo.size,
         compressedSize: buffer.length,
       });
