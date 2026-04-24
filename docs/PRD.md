@@ -129,7 +129,7 @@ Dokumen ini mendefinisikan kebutuhan **Driver Reporting System** yang terdiri da
 | ID | Requirement |
 |---|---|
 | FR-11 | Ambil foto dari kamera (input capture) atau pilih galeri |
-| FR-12 | Kompresi otomatis client-side, target < 300KB (canvas API / browser-image-compression) |
+| FR-12 | Kompresi otomatis client-side, target < 200KB (canvas API / browser-image-compression) |
 | FR-13 | Format output: JPEG quality 0.6–0.8 |
 | FR-14 | Min 1 foto wajib, max 5 foto per laporan |
 | FR-15 | Preview thumbnail + opsi hapus/ganti sebelum submit |
@@ -373,16 +373,16 @@ Design system mengacu pada branding [truckinc.id](https://truckinc.id/) — mema
 
 | Elemen | Font | Weight | Size | Catatan |
 |---|---|---|---|---|
-| Heading 1 (page title) | Inter | 700 (Bold) | 24px / 1.5rem | Digunakan di judul halaman |
-| Heading 2 (section title) | Inter | 600 (Semibold) | 20px / 1.25rem | Section header, card title |
-| Heading 3 (sub-section) | Inter | 600 (Semibold) | 16px / 1rem | Sub-section, label group |
-| Body | Inter | 400 (Regular) | 14px / 0.875rem | Default body text |
-| Body Small | Inter | 400 (Regular) | 12px / 0.75rem | Caption, meta info, timestamp |
-| Label / Form | Inter | 500 (Medium) | 14px / 0.875rem | Form label, table header |
-| Button | Inter | 600 (Semibold) | 14px / 0.875rem | Button text, CTA |
+| Heading 1 (page title) | Manrope | 700 (Bold) | 24px / 1.5rem | Digunakan di judul halaman |
+| Heading 2 (section title) | Manrope | 600 (Semibold) | 20px / 1.25rem | Section header, card title |
+| Heading 3 (sub-section) | Manrope | 600 (Semibold) | 16px / 1rem | Sub-section, label group |
+| Body | Manrope | 400 (Regular) | 14px / 0.875rem | Default body text |
+| Body Small | Manrope | 400 (Regular) | 12px / 0.75rem | Caption, meta info, timestamp |
+| Label / Form | Manrope | 500 (Medium) | 14px / 0.875rem | Form label, table header |
+| Button | Manrope | 600 (Semibold) | 14px / 0.875rem | Button text, CTA |
 
-> **Font Stack:** `'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif`
-> Inter dipilih karena legibility tinggi di layar kecil (mobile driver) dan tersedia gratis via Google Fonts.
+> **Font Stack:** `'Manrope', ui-sans-serif, system-ui, -apple-system, sans-serif`
+> Manrope dipilih karena legibility tinggi di layar kecil (mobile driver) dan tersedia gratis via Google Fonts.
 
 ### 14.3 Spacing System
 
@@ -546,7 +546,7 @@ Karena GPS enforcement adalah fitur krusial, berikut mapping visual yang konsist
   --color-info: #2563EB;
 
   /* Font */
-  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, sans-serif;
 }
 ```
 

@@ -38,14 +38,14 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-primary px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-accent flex items-center justify-center mx-auto mb-4 shadow-lg">
+          <div className="w-16 h-16 bg-accent flex items-center justify-center mx-auto mb-4">
             <Truck size={32} strokeWidth={1.5} className="text-white" />
           </div>
           <h1 className="text-2xl font-bold text-white">Truckinc</h1>
           <p className="text-sm text-white/60 mt-1">Driver Reporting System</p>
         </div>
 
-        <div className="bg-white shadow-lg p-6">
+        <div className="bg-white p-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-5">Masuk ke Akun</h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">

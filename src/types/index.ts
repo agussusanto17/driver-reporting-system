@@ -29,6 +29,13 @@ declare module "next-auth/jwt" {
   }
 }
 
+// Vehicle
+export interface Vehicle {
+  id: string;
+  plateNumber: string;
+  type: string;
+}
+
 // API response shapes
 export interface ReportPhoto {
   id: string;

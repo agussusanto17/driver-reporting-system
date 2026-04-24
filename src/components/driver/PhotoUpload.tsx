@@ -32,7 +32,7 @@ export function PhotoUpload({ photos, onChange, maxPhotos = 5 }: PhotoUploadProp
     for (const file of toProcess) {
       try {
         const compressed = await imageCompression(file, {
-          maxSizeMB: 0.3,
+          maxSizeMB: 0.2,
           maxWidthOrHeight: 1920,
           useWebWorker: true,
         });
@@ -108,7 +108,7 @@ export function PhotoUpload({ photos, onChange, maxPhotos = 5 }: PhotoUploadProp
       />
 
       <p className="text-xs text-gray-400 mt-2">
-        Foto dikompresi otomatis &lt;300KB · Min 1, maks {maxPhotos} foto
+        Foto dikompresi otomatis &lt;200KB · Min 1, maks {maxPhotos} foto
       </p>
     </div>
   );

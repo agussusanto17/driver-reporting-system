@@ -28,11 +28,11 @@ export default function DashboardPage() {
           <p className="text-sm text-gray-600">Selamat datang, {session.user.name}</p>
         </div>
         <div className="flex items-center gap-2">
-          <button className="flex items-center gap-2 h-9 px-4 bg-white border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors shadow-sm">
+          <button className="flex items-center gap-2 h-9 px-4 bg-white border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
             <Filter size={15} strokeWidth={1.5} />
             Filter
           </button>
-          <button className="flex items-center gap-2 h-9 px-4 bg-accent text-white text-sm font-semibold hover:bg-accent-600 transition-colors shadow-sm">
+          <button className="flex items-center gap-2 h-9 px-4 bg-accent text-white text-sm font-semibold hover:bg-accent-600 transition-colors">
             <Download size={15} strokeWidth={1.5} />
             Export Excel
           </button>
@@ -45,14 +45,14 @@ export default function DashboardPage() {
           { label: "Laporan Hari Ini", value: "—", color: "text-accent" },
           { label: "Driver Aktif", value: "—", color: "text-success" },
         ].map(({ label, value, color }) => (
-          <div key={label} className="bg-white border border-gray-200 shadow-sm px-5 py-4">
+          <div key={label} className="bg-white border border-gray-200 px-5 py-4">
             <p className="text-xs font-medium text-gray-600 mb-1">{label}</p>
             <p className={`text-2xl font-bold ${color}`}>{value}</p>
           </div>
         ))}
       </div>
 
-      <div className="bg-white border border-gray-200 shadow-sm">
+      <div className="bg-white border border-gray-200">
         <div className="flex items-center justify-between px-5 py-4 border-b border-gray-200">
           <h2 className="text-base font-semibold text-gray-900">Laporan Terbaru</h2>
           <button className="flex items-center gap-1.5 text-xs font-medium text-gray-600 hover:text-gray-900 transition-colors">

@@ -71,8 +71,8 @@ export default function ReportDetailPage() {
 
   if (error) {
     return (
-      <div className="flex flex-col min-h-screen bg-gray-100">
-        <header className="bg-primary px-4 pt-10 pb-5 flex items-center gap-3">
+      <div className="flex flex-col min-h-screen bg-white">
+        <header className="sticky top-0 z-40 bg-primary px-4 pt-10 pb-5 flex items-center gap-3">
           <button onClick={() => router.back()}>
             <ArrowLeft size={20} strokeWidth={1.5} className="text-white" />
           </button>
@@ -95,10 +95,10 @@ export default function ReportDetailPage() {
   const mapsUrl = `https://www.google.com/maps?q=${report.latitude},${report.longitude}`;
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100">
+    <div className="flex flex-col min-h-screen bg-white">
 
       {/* ── Header ── */}
-      <header className="bg-primary px-4 pt-10 pb-5 flex items-center gap-3">
+      <header className="sticky top-0 z-40 bg-primary px-4 pt-10 pb-5 flex items-center gap-3">
         <button onClick={() => router.back()} className="shrink-0">
           <ArrowLeft size={20} strokeWidth={1.5} className="text-white" />
         </button>
@@ -111,7 +111,7 @@ export default function ReportDetailPage() {
       <div className="flex-1 px-4 py-4 space-y-3">
 
         {/* ── Badge tipe ── */}
-        <div className={`flex items-center gap-2 px-4 py-3 border shadow-sm ${
+        <div className={`flex items-center gap-2 px-4 py-3 border ${
           isPickup ? "bg-blue-50 border-blue-100" : "bg-green-50 border-green-100"
         }`}>
           {isPickup
@@ -124,7 +124,7 @@ export default function ReportDetailPage() {
         </div>
 
         {/* ── Info laporan ── */}
-        <div className="bg-white border border-gray-200 shadow-sm px-4">
+        <div className="bg-white border border-gray-200 px-4">
           <InfoRow
             icon={<Truck size={15} strokeWidth={1.5} />}
             label="Nopol"
@@ -156,7 +156,7 @@ export default function ReportDetailPage() {
 
         {/* ── Foto muatan ── */}
         {photos.length > 0 && (
-          <div className="bg-white border border-gray-200 shadow-sm overflow-hidden">
+          <div className="bg-white border border-gray-200 overflow-hidden">
             <div className="px-4 pt-4 pb-3 flex items-center justify-between border-b border-gray-100">
               <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Foto Muatan</p>
               <span className="text-xs text-gray-400">{photoIndex + 1} / {photos.length}</span>
@@ -217,7 +217,7 @@ export default function ReportDetailPage() {
           href={mapsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 w-full h-11 bg-white border border-gray-200 shadow-sm text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+          className="flex items-center justify-center gap-2 w-full h-11 bg-white border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
         >
           <MapPin size={15} strokeWidth={1.5} className="text-accent" />
           Lihat Lokasi di Google Maps
