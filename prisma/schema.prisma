@@ -23,6 +23,8 @@ model User {
   username     String   @unique
   passwordHash String   @map("password_hash")
   role         Role     @default(DRIVER)
+  phone        String?
+  email        String?
   vehicleId    String?  @map("vehicle_id")
   vehicle      Vehicle? @relation(fields: [vehicleId], references: [id])
   reports      Report[]
