@@ -24,9 +24,11 @@ if (content.includes("UPLOADS_ROOT")) {
 
 // Persistent uploads path: sibling of nodejs/ directory, inside public_html
 // Resolves to: /home/.../domains/driver.truckinc.id/public_html/uploads
+// From nodejs/__dirname, one level up reaches driver.truckinc.id/
+// then public_html/uploads is the persistent storage folder
 const uploadsPatch = `
 process.env.UPLOADS_ROOT = process.env.UPLOADS_ROOT ||
-  require("path").join(__dirname, "..", "..", "public_html", "uploads");
+  require("path").join(__dirname, "..", "public_html", "uploads");
 `;
 
 const patched = content.replace(
