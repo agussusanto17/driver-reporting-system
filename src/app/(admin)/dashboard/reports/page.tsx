@@ -110,7 +110,7 @@ export default function ReportsPage() {
     <div className="flex flex-col h-screen p-5 gap-4 overflow-hidden">
 
       {/* Detail popup */}
-      {selected && <ReportDetailPanel report={selected} onClose={() => setSelected(null)} />}
+      {selected && <ReportDetailPanel report={selected} onClose={() => setSelected(null)} onDelete={(id) => { setReports(prev => prev.filter(r => r.id !== id)); setTotal(t => t - 1); }} />}
 
       {/* ── Header ── */}
       <div className="flex items-center justify-between shrink-0">

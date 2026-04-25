@@ -229,7 +229,7 @@ export default function DashboardPage() {
   return (
     <div className="h-screen flex flex-col p-5 gap-4 overflow-hidden">
 
-      {selected && <ReportDetailPanel report={selected} onClose={() => setSelected(null)} />}
+      {selected && <ReportDetailPanel report={selected} onClose={() => setSelected(null)} onDelete={(id) => { setReports(prev => prev.filter(r => r.id !== id)); setTodayReports(prev => prev.filter(r => r.id !== id)); }} />}
 
       {/* ── Header ── */}
       <div className="flex items-center justify-between shrink-0">
