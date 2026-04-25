@@ -129,7 +129,7 @@ Dokumen ini mendefinisikan kebutuhan **Driver Reporting System** yang terdiri da
 | ID | Requirement |
 |---|---|
 | FR-11 | Ambil foto dari kamera (input capture) atau pilih galeri |
-| FR-12 | Kompresi otomatis client-side, target < 200KB (canvas API / browser-image-compression) |
+| FR-12 | Kompresi otomatis client-side, target < 100KB (canvas API / browser-image-compression) |
 | FR-13 | Format output: JPEG quality 0.6–0.8 |
 | FR-14 | Min 1 foto wajib, max 5 foto per laporan |
 | FR-15 | Preview thumbnail + opsi hapus/ganti sebelum submit |

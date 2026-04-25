@@ -170,10 +170,6 @@ export default function ReportHistoryPage() {
 
       {/* ── Header ── */}
       <header className="sticky top-0 z-40 bg-primary px-4 pt-10 pb-4">
-        <h1 className="text-white font-bold text-lg">Riwayat Laporan</h1>
-        <p className="text-white/60 text-xs mt-0.5 mb-4">
-          {total > 0 ? `${total} laporan tercatat` : "Semua laporan yang pernah dikirim"}
-        </p>
 
         {/* Search bar */}
         <div className="flex items-center gap-2 bg-white px-3 h-11">

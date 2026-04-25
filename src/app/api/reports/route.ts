@@ -113,12 +113,15 @@ export async function POST(req: NextRequest) {
     });
 
     // Save photos to disk
+    const vehicle = await prisma.vehicle.findUnique({ where: { id: vehicleId }, select: { plateNumber: true } });
+    const plateNumber = vehicle?.plateNumber ?? vehicleId;
+
     const uploadDir = await ensureUploadDir();
     const photoRecords = [];
 
     for (let i = 0; i < photos.length; i++) {
       const photo = photos[i];
-      const fileName = generateFileName(report.id, i);
+      const fileName = generateFileName(i, plateNumber, originCity, destinationCity);
       const filePath = path.join(uploadDir, fileName);
 
       const buffer = Buffer.from(await photo.arrayBuffer());

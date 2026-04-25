@@ -9,6 +9,7 @@ import {
   MapPin, ChevronRight, Loader2, Clock,
   CalendarCheck, CalendarDays,
 } from "lucide-react";
+import Image from "next/image";
 import type { ReportSummary, ReportsResponse } from "@/types";
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
@@ -135,18 +136,29 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-primary/70" />
 
         <div className="relative z-10">
-        {/* Avatar + greeting */}
-        <div className="flex items-center gap-4 mb-6">
-          <div className="avatar-circle w-12 h-12 bg-accent flex items-center justify-center shrink-0">
-            <span className="text-white font-bold text-base tracking-wide">
-              {getInitials(session.user.name ?? "?")}
-            </span>
+        {/* Logo + Avatar row */}
+        <div className="flex items-start justify-between mb-6">
+          {/* Avatar + greeting */}
+          <div className="flex items-center gap-3">
+            <div className="avatar-circle w-12 h-12 bg-accent flex items-center justify-center shrink-0">
+              <span className="text-white font-bold text-base tracking-wide">
+                {getInitials(session.user.name ?? "?")}
+              </span>
+            </div>
+            <div>
+              <p className="text-white/60 text-xs">{greeting()}</p>
+              <p className="text-white font-bold text-lg leading-tight">{session.user.name}</p>
+              <p className="text-white/40 text-[11px] mt-0.5">{todayStr()}</p>
+            </div>
           </div>
-          <div>
-            <p className="text-white/60 text-xs">{greeting()}</p>
-            <p className="text-white font-bold text-lg leading-tight">{session.user.name}</p>
-            <p className="text-white/40 text-[11px] mt-0.5">{todayStr()}</p>
-          </div>
+          {/* Logo */}
+          <Image
+            src="/images/truckinc-logo-white.svg"
+            alt="Truckinc"
+            width={90}
+            height={24}
+            className="h-6 w-auto mt-1 opacity-80"
+          />
         </div>
 
         {/* Nopol badge */}

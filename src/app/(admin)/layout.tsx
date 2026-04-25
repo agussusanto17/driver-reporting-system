@@ -4,6 +4,7 @@ import Providers from "@/components/Providers";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LayoutDashboard, Truck, Users, LogOut, FileText } from "lucide-react";
+import Image from "next/image";
 import { signOut } from "next-auth/react";
 
 const navItems = [
@@ -20,14 +21,15 @@ function Sidebar() {
     <aside className="fixed top-0 left-0 h-full w-60 bg-primary flex flex-col z-40">
       <div className="px-6 py-5 border-b border-primary-400/30">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-accent flex items-center justify-center">
-            <Truck size={18} strokeWidth={1.5} className="text-white" />
-          </div>
-          <div>
-            <p className="text-white font-bold text-sm leading-tight">Truckinc</p>
-            <p className="text-white/50 text-[10px]">Admin Panel</p>
-          </div>
+          <Image
+            src="/images/truckinc-logo-white.svg"
+            alt="Truckinc"
+            width={120}
+            height={32}
+            className="h-8 w-auto"
+          />
         </div>
+        <p className="text-white/40 text-[10px] mt-1.5">Admin Panel</p>
       </div>
 
       <nav className="flex-1 px-3 py-4 space-y-1">

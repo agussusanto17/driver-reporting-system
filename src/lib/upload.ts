@@ -19,8 +19,18 @@ export async function ensureUploadDir(): Promise<string> {
   return dir;
 }
 
-export function generateFileName(reportId: string, index: number): string {
-  return `${reportId}-${index}-${Date.now()}.jpg`;
+function sanitize(str: string): string {
+  return str.replace(/\s+/g, "").replace(/[^a-zA-Z0-9]/g, "").toUpperCase();
+}
+
+export function generateFileName(
+  index: number,
+  plateNumber: string,
+  originCity: string,
+  destinationCity: string,
+): string {
+  const name = `${sanitize(plateNumber)}-${sanitize(originCity)}-${sanitize(destinationCity)}`;
+  return `${name}-${index}-${Date.now()}.jpg`;
 }
 
 // Strip UPLOADS_ROOT prefix to get a storable relative path
