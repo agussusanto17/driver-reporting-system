@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
-    "build": "npx prisma migrate deploy && next build && cp -r public .next/standalone/public && cp -r .next/static .next/standalone/.next/static",
+    "build": "npx prisma migrate deploy && next build && cp -r public .next/standalone/public && cp -r .next/static .next/standalone/.next/static && node scripts/patch-server.js",
     "start": "node .next/standalone/server.js",
     "lint": "next lint",
     "db:migrate": "npx prisma migrate dev",
