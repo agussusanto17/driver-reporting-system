@@ -37,6 +37,12 @@
   box-shadow: none !important;
 }
 
+/* Status bar fix: html background = primary sehingga iOS safe-area di atas
+   terlihat biru Truckinc, bukan putih. Body tetap white untuk konten. */
+html {
+  background-color: #051E4B;
+}
+
 .avatar-circle {
   border-radius: 50% !important;
 }

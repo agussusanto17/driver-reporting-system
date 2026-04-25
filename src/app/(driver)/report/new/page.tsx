@@ -1,12 +1,12 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
   Truck, Package, PackageCheck, ChevronRight,
   AlertTriangle, Loader2, CheckCircle, RotateCcw,
-  PlusCircle, ArrowRight, ChevronDown, X,
+  PlusCircle, ArrowRight, ChevronDown, X, ArrowLeft,
 } from "lucide-react";
 import { useGps } from "@/hooks/useGps";
 import { GpsBanner } from "@/components/driver/GpsBanner";
@@ -74,12 +74,20 @@ function ChoosingScreen({
   onNew: () => void;
 }) {
   const isPickup = lastReport.reportType === "PICKUP";
+  const router = useRouter();
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
       <header className="sticky top-0 z-40 bg-primary px-4 pt-10 pb-5">
-        <h1 className="text-white font-bold text-lg">Buat Laporan</h1>
-        <p className="text-white/60 text-xs mt-0.5">Pilih jenis laporan</p>
+        <div className="flex items-center gap-3 mb-1">
+          <button onClick={() => router.back()} className="shrink-0">
+            <ArrowLeft size={20} strokeWidth={1.5} className="text-white" />
+          </button>
+          <div>
+            <h1 className="text-white font-bold text-lg">Buat Laporan</h1>
+            <p className="text-white/60 text-xs">Pilih jenis laporan</p>
+          </div>
+        </div>
       </header>
 
       <div className="flex-1 px-4 py-5 space-y-3">
@@ -150,7 +158,7 @@ function VehiclePicker({
   onClose: () => void;
 }) {
   return (
-    <div className="fixed inset-0 z-50 flex flex-col justify-end bg-black/40">
+    <div className="fixed inset-0 z-[200] flex flex-col justify-end bg-black/40">
       <div className="bg-white max-h-[70vh] flex flex-col">
         <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200">
           <p className="text-sm font-semibold text-gray-900">Pilih Kendaraan</p>
@@ -194,10 +202,12 @@ function ReportForm({
   session,
   initialOrigin,
   onSubmitSuccess,
+  onBack,
 }: {
   session: { user: { name: string; plateNumber?: string | null; vehicleId?: string | null } };
   initialOrigin: string;
   onSubmitSuccess: (destination: string) => void;
+  onBack?: () => void;
 }) {
   const { status: gpsStatus, position, isBlocked: gpsBlocked } = useGps();
 
@@ -281,6 +291,12 @@ function ReportForm({
       )}
 
       <header className="sticky top-0 z-40 bg-primary px-4 pt-10 pb-5">
+        {onBack && (
+          <button onClick={onBack} className="flex items-center gap-1.5 text-white/70 text-xs mb-3">
+            <ArrowLeft size={16} strokeWidth={1.5} />
+            Kembali
+          </button>
+        )}
         <div className="flex items-center justify-between">
           <div>
             <p className="text-white/60 text-xs font-medium mb-0.5">Selamat datang</p>
@@ -432,6 +448,7 @@ function ReportForm({
 // ── Main page ──────────────────────────────────────────────────────────────────
 export default function NewReportPage() {
   const { data: session, status: authStatus } = useSession();
+  const router = useRouter();
 
   const [screen, setScreen] = useState<Screen>("choosing");
   const [lastReport, setLastReport] = useState<ReportSummary | null>(null);
@@ -511,6 +528,7 @@ export default function NewReportPage() {
         setLastDestination(dest);
         setSubmitted(true);
       }}
+      onBack={() => screen === "form" && lastReport ? setScreen("choosing") : router.back()}
     />
   );
 }
