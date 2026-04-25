@@ -228,7 +228,7 @@ export default function ProfilePage() {
       {toast && <Toast message={toast.message} type={toast.type} />}
 
       {/* ── Header ── */}
-      <header className="bg-primary px-4 pt-10 pb-8">
+      <header className="bg-primary px-4 pb-8" style={{ paddingTop: "max(2.5rem, env(safe-area-inset-top, 2.5rem))" }}>
         <div className="flex flex-col items-center text-center">
           <div className="avatar-circle w-20 h-20 bg-accent flex items-center justify-center mb-4">
             <span className="text-white font-bold text-2xl tracking-wide">

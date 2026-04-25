@@ -49,12 +49,6 @@ export default function DriverLayout({ children }: { children: React.ReactNode }
 
   return (
     <Providers>
-      {/* Status bar safe-area cover — memastikan area di atas konten
-          selalu biru Truckinc di iOS PWA (black-translucent status bar) */}
-      <div
-        className="fixed top-0 left-0 right-0 max-w-md mx-auto bg-primary z-[9999]"
-        style={{ height: "env(safe-area-inset-top, 0px)" }}
-      />
       <div className={`min-h-screen max-w-md mx-auto bg-white ${hideNav ? "" : "pb-16"}`}>
         {children}
         <BottomNav pathname={pathname} />

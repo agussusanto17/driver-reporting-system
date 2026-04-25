@@ -126,8 +126,9 @@ export default function HomePage() {
 
       {/* ── Hero header ── */}
       <div
-        className="relative bg-primary px-5 pt-12 pb-8"
+        className="relative bg-primary px-5 pb-8"
         style={{
+          paddingTop: "max(3rem, env(safe-area-inset-top, 3rem))",
           backgroundImage: "url('/images/bg-header.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
