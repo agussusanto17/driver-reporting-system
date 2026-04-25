@@ -3,12 +3,14 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Truck, AlertCircle } from "lucide-react";
+import { AlertCircle, Eye, EyeOff } from "lucide-react";
+import Image from "next/image";
 
 export default function LoginPage() {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -37,12 +39,18 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-primary px-4">
       <div className="w-full max-w-sm">
-        <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-accent flex items-center justify-center mx-auto mb-4">
-            <Truck size={32} strokeWidth={1.5} className="text-white" />
-          </div>
-          <h1 className="text-2xl font-bold text-white">Truckinc</h1>
-          <p className="text-sm text-white/60 mt-1">Driver Reporting System</p>
+
+        {/* Logo + title */}
+        <div className="flex flex-col items-center mb-8 gap-3">
+          <Image
+            src="/images/truckinc-logo-white.svg"
+            alt="Truckinc"
+            width={140}
+            height={38}
+            className="h-9 w-auto"
+            priority
+          />
+          <p className="text-white/50 text-sm">Driver Reporting System</p>
         </div>
 
         <div className="bg-white p-6">
@@ -74,14 +82,26 @@ export default function LoginPage() {
               <label className="block text-sm font-medium text-gray-600 mb-1.5">
                 Password
               </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full h-11 px-3 border border-gray-200 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-colors"
-                placeholder="Masukkan password"
-                required
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full h-11 px-3 pr-10 border border-gray-200 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-colors"
+                  placeholder="Masukkan password"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(s => !s)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  {showPassword
+                    ? <EyeOff size={16} strokeWidth={1.5} />
+                    : <Eye size={16} strokeWidth={1.5} />
+                  }
+                </button>
+              </div>
             </div>
 
             <button
@@ -93,6 +113,7 @@ export default function LoginPage() {
             </button>
           </form>
         </div>
+
       </div>
     </div>
   );

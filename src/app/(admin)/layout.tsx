@@ -3,7 +3,7 @@
 import Providers from "@/components/Providers";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Truck, Users, LogOut, FileText } from "lucide-react";
+import { LayoutDashboard, Truck, Users, LogOut, FileText, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
 
@@ -12,6 +12,7 @@ const navItems = [
   { href: "/dashboard/reports",  icon: FileText,        label: "Laporan"    },
   { href: "/dashboard/vehicles", icon: Truck,           label: "Kendaraan"  },
   { href: "/dashboard/drivers", icon: Users, label: "Driver" },
+  { href: "/dashboard/admins",   icon: ShieldCheck,     label: "Admin"      },
 ];
 
 function Sidebar() {

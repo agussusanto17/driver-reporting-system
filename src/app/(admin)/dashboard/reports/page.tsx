@@ -6,10 +6,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import {
   Search, Filter, X, ChevronLeft, ChevronRight,
   Package, PackageCheck, MapPin, User, Truck,
-  Loader2, FileText, Image,
+  Loader2, FileText, Image, Download,
 } from "lucide-react";
 import type { ReportSummary, ReportsResponse } from "@/types";
 import ReportDetailPanel from "@/components/admin/ReportDetailPanel";
+import * as XLSX from "xlsx";
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 interface Driver { id: string; name: string; vehicle: { plateNumber: string } | null }
@@ -67,6 +68,74 @@ export default function ReportsPage() {
     }
     setLoading(false);
   }, [buildParams]);
+
+  const [exporting, setExporting] = useState(false);
+
+  const handleExport = async () => {
+    setExporting(true);
+    try {
+      // Fetch semua data sesuai filter aktif (tanpa pagination)
+      const params = new URLSearchParams({ page: "1", limit: "9999" });
+      if (typeFilter !== "ALL") params.set("reportType", typeFilter);
+      if (driverFilter) params.set("driverId", driverFilter);
+      if (startDate) params.set("startDate", startDate);
+      if (endDate) params.set("endDate", endDate);
+
+      const res = await fetch(`/api/reports?${params}`);
+      if (!res.ok) return;
+      const data: ReportsResponse = await res.json();
+
+      // Terapkan search filter jika ada
+      const rows = search.trim()
+        ? data.reports.filter(r => {
+            const q = search.toLowerCase();
+            return r.originCity.toLowerCase().includes(q) ||
+              r.destinationCity.toLowerCase().includes(q) ||
+              r.user.name.toLowerCase().includes(q) ||
+              r.vehicle.plateNumber.toLowerCase().includes(q) ||
+              (r.locationName ?? "").toLowerCase().includes(q);
+          })
+        : data.reports;
+
+      // Susun data Excel
+      const wsData = [
+        ["No", "Tanggal", "Driver", "Nopol", "Tipe", "Asal", "Tujuan", "Latitude", "Longitude", "Lokasi", "Link Foto", "Catatan"],
+        ...rows.map((r, i) => [
+          i + 1,
+          new Date(r.createdAt).toLocaleString("id-ID"),
+          r.user.name,
+          r.vehicle.plateNumber,
+          r.reportType,
+          r.originCity,
+          r.destinationCity,
+          r.latitude,
+          r.longitude,
+          r.locationName ?? "",
+          r.photos.map(p => {
+            const rel = p.filePath.replace(/\\/g, "/").replace(/^.*\/uploads/, "/uploads");
+            return `${window.location.origin}/api/uploads${rel.replace("/uploads", "")}`;
+          }).join(", "),
+          r.notes ?? "",
+        ]),
+      ];
+
+      const ws = XLSX.utils.aoa_to_sheet(wsData);
+
+      // Auto column width
+      const colWidths = wsData[0].map((_, ci) =>
+        Math.min(50, Math.max(10, ...wsData.map(row => String(row[ci] ?? "").length)))
+      );
+      ws["!cols"] = colWidths.map(w => ({ wch: w }));
+
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Laporan");
+
+      const now = new Date().toISOString().slice(0, 10);
+      XLSX.writeFile(wb, `laporan-truckinc-${now}.xlsx`);
+    } finally {
+      setExporting(false);
+    }
+  };
 
   useEffect(() => {
     if (status !== "authenticated") return;
@@ -130,6 +199,16 @@ export default function ReportsPage() {
             <Filter size={14} strokeWidth={1.5} />
             Filter
             {hasFilter && <span className="w-4 h-4 bg-accent text-white text-[10px] font-bold flex items-center justify-center">!</span>}
+          </button>
+          <button
+            onClick={handleExport}
+            disabled={exporting || total === 0}
+            className="flex items-center gap-2 h-9 px-4 bg-accent text-white text-sm font-semibold hover:bg-accent-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {exporting
+              ? <><Loader2 size={14} strokeWidth={1.5} className="animate-spin" /> Mengexport...</>
+              : <><Download size={14} strokeWidth={1.5} /> Export Excel</>
+            }
           </button>
         </div>
       </div>
