@@ -3,12 +3,13 @@
 import Providers from "@/components/Providers";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Truck, Users, LogOut } from "lucide-react";
+import { LayoutDashboard, Truck, Users, LogOut, FileText } from "lucide-react";
 import { signOut } from "next-auth/react";
 
 const navItems = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
-  { href: "/dashboard/vehicles", icon: Truck, label: "Kendaraan" },
+  { href: "/dashboard/reports",  icon: FileText,        label: "Laporan"    },
+  { href: "/dashboard/vehicles", icon: Truck,           label: "Kendaraan"  },
   { href: "/dashboard/drivers", icon: Users, label: "Driver" },
 ];
 
@@ -31,7 +32,7 @@ function Sidebar() {
 
       <nav className="flex-1 px-3 py-4 space-y-1">
         {navItems.map(({ href, icon: Icon, label }) => {
-          const isActive = pathname === href;
+          const isActive = href === "/dashboard" ? pathname === href : pathname.startsWith(href);
           return (
             <Link
               key={href}
