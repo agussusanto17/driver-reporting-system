@@ -227,7 +227,7 @@ export default function DashboardPage() {
   if (!session || session.user.role !== "ADMIN") redirect("/login");
 
   return (
-    <div className="h-screen flex flex-col p-5 gap-4 overflow-hidden">
+    <div className="min-h-screen flex flex-col p-4 lg:p-5 gap-4">
 
       {selected && <ReportDetailPanel report={selected} onClose={() => setSelected(null)} onDelete={(id) => { setReports(prev => prev.filter(r => r.id !== id)); setTodayReports(prev => prev.filter(r => r.id !== id)); }} />}
 
@@ -262,7 +262,7 @@ export default function DashboardPage() {
       </div>
 
       {/* ── Stats ── */}
-      <div className="grid grid-cols-4 gap-3 shrink-0">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 shrink-0">
         <StatCard label="Total Laporan"       value={countTotal}    icon={<FileText size={16} strokeWidth={1.5} />} />
         <StatCard label="Laporan Hari Ini"    value={countToday}    icon={<Clock size={16} strokeWidth={1.5} />}    accent />
         <StatCard label="Laporan Minggu Ini"  value={countWeek}     icon={<TrendingUp size={16} strokeWidth={1.5} />} />
@@ -280,7 +280,7 @@ export default function DashboardPage() {
               </button>
             )}
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
               <label className="block text-sm text-gray-500 mb-1.5">Tipe</label>
               <div className="flex gap-1">
@@ -312,10 +312,10 @@ export default function DashboardPage() {
       )}
 
       {/* ── Main 2-col layout ── */}
-      <div className="flex gap-4 flex-1 min-h-0">
+      <div className="flex flex-col lg:flex-row gap-4 lg:flex-1 lg:min-h-0">
 
         {/* Kiri: Peta */}
-        <div className="flex flex-col flex-[3] min-h-0 bg-white border border-gray-200">
+        <div className="flex flex-col lg:flex-[3] lg:min-h-0 bg-white border border-gray-200">
           <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 shrink-0">
             <div className="flex items-center gap-2">
               <Map size={15} strokeWidth={1.5} className="text-accent" />
@@ -323,7 +323,7 @@ export default function DashboardPage() {
             </div>
             <span className="text-sm text-gray-400">{todayReports.length} titik</span>
           </div>
-          <div className="flex-1 min-h-0">
+          <div className="h-72 lg:flex-1 lg:min-h-0">
             {todayReports.length === 0 && !loading ? (
               <div className="flex flex-col items-center justify-center h-full gap-2 text-gray-400">
                 <MapPin size={28} strokeWidth={1.5} />
@@ -336,7 +336,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Kanan: Feed laporan */}
-        <div className="flex flex-col flex-[2] min-h-0 bg-white border border-gray-200">
+        <div className="flex flex-col lg:flex-[2] lg:min-h-0 bg-white border border-gray-200">
           <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 shrink-0">
             <div className="flex items-center gap-2">
               <h2 className="text-base font-semibold text-gray-900">Laporan Masuk</h2>
@@ -350,7 +350,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Scrollable feed */}
-          <div className="flex-1 overflow-y-auto min-h-0">
+          <div className="max-h-96 lg:flex-1 lg:max-h-none overflow-y-auto lg:min-h-0">
             {loading ? (
               [...Array(8)].map((_, i) => <SkeletonCard key={i} />)
             ) : reports.length === 0 ? (

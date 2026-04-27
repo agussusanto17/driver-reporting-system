@@ -176,7 +176,7 @@ export default function ReportsPage() {
   const totalPages = Math.ceil(total / LIMIT);
 
   return (
-    <div className="flex flex-col h-screen p-5 gap-4 overflow-hidden">
+    <div className="min-h-screen flex flex-col p-4 lg:p-5 gap-4">
 
       {/* Detail popup */}
       {selected && <ReportDetailPanel report={selected} onClose={() => setSelected(null)} onDelete={(id) => { setReports(prev => prev.filter(r => r.id !== id)); setTotal(t => t - 1); }} />}
@@ -279,7 +279,7 @@ export default function ReportsPage() {
       )}
 
       {/* ── Table ── */}
-      <div className="flex-1 min-h-0 bg-white border border-gray-200 flex flex-col">
+      <div className="overflow-x-auto bg-white border border-gray-200">
         {/* Table header */}
         <div className="grid grid-cols-[40px_1fr_140px_120px_90px_1fr_90px_40px] gap-0 border-b border-gray-200 shrink-0">
           {["No", "Rute", "Driver", "Nopol", "Tipe", "Lokasi", "Waktu", ""].map((h, i) => (

@@ -193,7 +193,7 @@ export default function VehiclesPage() {
   const inactive = vehicles.filter(v => !v.isActive).length;
 
   return (
-    <div className="p-6">
+    <div className="p-4 lg:p-6">
       {toast && <Toast message={toast.message} type={toast.type} />}
 
       {(showModal || editTarget) && (
@@ -217,7 +217,7 @@ export default function VehiclesPage() {
           className="flex items-center gap-2 h-9 px-4 bg-accent text-white text-sm font-semibold hover:bg-accent-600 transition-colors"
         >
           <Plus size={15} strokeWidth={2} />
-          Tambah Kendaraan
+
         </button>
       </div>
 
@@ -235,7 +235,7 @@ export default function VehiclesPage() {
       </div>
 
       {/* ── Table ── */}
-      <div className="bg-white border border-gray-200">
+      <div className="bg-white border border-gray-200 overflow-x-auto">
         {/* Header */}
         <div className="grid grid-cols-[50px_160px_1fr_1fr_100px_120px] border-b border-gray-200 bg-gray-50">
           {["No", "Nopol", "Tipe", "Driver", "Status", "Aksi"].map((h, i) => (

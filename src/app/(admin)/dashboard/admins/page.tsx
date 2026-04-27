@@ -251,7 +251,7 @@ export default function AdminsPage() {
     : admins;
 
   return (
-    <div className="p-6">
+    <div className="p-4 lg:p-6">
       {toast && <Toast message={toast.message} type={toast.type} />}
 
       {(showModal || editTarget) && (
@@ -280,7 +280,7 @@ export default function AdminsPage() {
         <button onClick={() => setShowModal(true)}
           className="flex items-center gap-2 h-9 px-4 bg-accent text-white text-sm font-semibold hover:bg-accent-600 transition-colors">
           <Plus size={15} strokeWidth={2} />
-          Tambah Admin
+
         </button>
       </div>
 
@@ -294,7 +294,7 @@ export default function AdminsPage() {
       </div>
 
       {/* Table */}
-      <div className="bg-white border border-gray-200">
+      <div className="bg-white border border-gray-200 overflow-x-auto">
         <div className="grid grid-cols-[40px_1fr_140px_140px_160px_100px] border-b border-gray-200 bg-gray-50">
           {["No", "Nama", "Username", "No. Telpon", "Email", "Aksi"].map((h, i) => (
             <div key={i} className={`px-3 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide ${i === 0 ? "text-center" : ""}`}>{h}</div>
