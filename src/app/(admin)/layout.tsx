@@ -121,7 +121,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="lg:ml-60 flex flex-col min-h-screen">
 
           {/* Mobile top bar */}
-          <header className="lg:hidden sticky top-0 z-30 bg-primary flex items-center gap-3 px-4 h-14 shrink-0">
+          <header className="lg:hidden sticky top-0 z-1500 bg-primary flex items-center gap-3 px-4 h-14 shrink-0">
             <button onClick={() => setOpen(true)} className="text-white/80 hover:text-white">
               <Menu size={22} strokeWidth={1.5} />
             </button>
