@@ -88,12 +88,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
         {/* ── Mobile sidebar overlay ── */}
         {open && (
-          <div className="lg:hidden fixed inset-0 z-40 flex">
+          <div className="lg:hidden fixed inset-0 z-2000 flex">
             {/* Backdrop */}
             <div className="absolute inset-0 bg-black/50" onClick={() => setOpen(false)} />
 
             {/* Drawer */}
-            <aside className="relative w-72 max-w-[85vw] bg-primary h-full flex flex-col z-50">
+            <aside className="relative w-72 max-w-[85vw] bg-primary h-full flex flex-col z-2001">
               <div className="px-6 py-5 border-b border-primary-400/30 flex items-center justify-between">
                 <div>
                   <Image src="/images/truckinc-logo-white.svg" alt="Truckinc" width={110} height={30} className="h-7 w-auto" />
