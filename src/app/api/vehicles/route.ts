@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
       createdAt: true,
       users: { select: { id: true, name: true } },
     },
-    orderBy: { plateNumber: "asc" },
+    orderBy: [{ isActive: "desc" }, { plateNumber: "asc" }],
   });
 
   return NextResponse.json(vehicles);
