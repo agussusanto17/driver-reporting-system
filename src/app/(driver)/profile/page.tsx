@@ -257,19 +257,9 @@ export default function ProfilePage() {
                 Ubah
               </button>
             ) : (
-              <div className="flex items-center gap-3">
-                <button onClick={cancelEdit} className="text-xs text-gray-400 font-medium flex items-center gap-1">
-                  <X size={13} strokeWidth={1.5} /> Batal
-                </button>
-                <button
-                  onClick={handleSaveProfile}
-                  disabled={saving}
-                  className="flex items-center gap-1.5 text-xs font-semibold text-white bg-accent px-3 py-1.5 disabled:opacity-50"
-                >
-                  {saving ? <Loader2 size={12} strokeWidth={1.5} className="animate-spin" /> : <Check size={13} strokeWidth={2} />}
-                  Simpan
-                </button>
-              </div>
+              <button onClick={cancelEdit} className="text-xs text-gray-400 font-medium flex items-center gap-1">
+                <X size={13} strokeWidth={1.5} /> Batal
+              </button>
             )}
           </div>
 
@@ -287,6 +277,16 @@ export default function ProfilePage() {
               <Field label="No. Telepon"  value={phone} onChange={setPhone} placeholder="Contoh: 08123456789" type="tel" />
               <Field label="Email"        value={email} onChange={setEmail} placeholder="Contoh: nama@email.com" type="email" />
               <p className="text-xs text-gray-400">Username tidak dapat diubah.</p>
+              <button
+                onClick={handleSaveProfile}
+                disabled={saving}
+                className="w-full h-11 bg-primary text-white text-sm font-semibold flex items-center justify-center gap-2 disabled:opacity-50 hover:bg-primary-600 transition-colors"
+              >
+                {saving
+                  ? <><Loader2 size={15} strokeWidth={1.5} className="animate-spin" /> Menyimpan...</>
+                  : <><Check size={15} strokeWidth={2} /> Simpan Profil</>
+                }
+              </button>
             </div>
           )}
         </div>
