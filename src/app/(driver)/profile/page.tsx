@@ -275,11 +275,11 @@ export default function ProfilePage() {
 
           {!editMode ? (
             <div className="px-4">
-              <InfoRow icon={<User size={16} strokeWidth={1.5} />}   label="Nama Lengkap" value={session.user.name ?? "—"} />
-              <InfoRow icon={<IdCard size={16} strokeWidth={1.5} />} label="Username"     value={session.user.username ?? "—"} />
-              <InfoRow icon={<Phone size={16} strokeWidth={1.5} />}  label="No. Telepon"  value={session.user.phone ?? "—"} />
-              <InfoRow icon={<Mail size={16} strokeWidth={1.5} />}   label="Email"        value={session.user.email ?? "—"} />
-              <InfoRow icon={<ShieldCheck size={16} strokeWidth={1.5} />} label="Peran"  value="Driver" />
+              <InfoRow icon={<User size={20} strokeWidth={1.5} />}   label="Nama Lengkap" value={session.user.name ?? "—"} />
+              <InfoRow icon={<IdCard size={20} strokeWidth={1.5} />} label="Username"     value={session.user.username ?? "—"} />
+              <InfoRow icon={<Phone size={20} strokeWidth={1.5} />}  label="No. Telepon"  value={session.user.phone ?? "—"} />
+              <InfoRow icon={<Mail size={20} strokeWidth={1.5} />}   label="Email"        value={session.user.email ?? "—"} />
+              <InfoRow icon={<ShieldCheck size={20} strokeWidth={1.5} />} label="Peran"  value="Driver" />
             </div>
           ) : (
             <div className="px-4 py-4 space-y-3">
@@ -297,8 +297,8 @@ export default function ProfilePage() {
             Kendaraan
           </p>
           <div className="px-4">
-            <InfoRow icon={<Hash size={16} strokeWidth={1.5} />}  label="Nomor Polisi"    value={session.user.plateNumber ?? "Belum ada kendaraan"} />
-            <InfoRow icon={<Truck size={16} strokeWidth={1.5} />} label="Tipe Kendaraan"  value={vehicleType ?? "—"} />
+            <InfoRow icon={<Hash size={20} strokeWidth={1.5} />}  label="Nomor Polisi"    value={session.user.plateNumber ?? "Belum ada kendaraan"} />
+            <InfoRow icon={<Truck size={20} strokeWidth={1.5} />} label="Tipe Kendaraan"  value={vehicleType ?? "—"} />
           </div>
         </div>
 
@@ -353,8 +353,8 @@ export default function ProfilePage() {
           className="w-full h-12 flex items-center justify-center gap-2 bg-white border border-danger text-danger font-semibold text-sm hover:bg-red-50 transition-colors disabled:opacity-50"
         >
           {loggingOut
-            ? <Loader2 size={16} strokeWidth={1.5} className="animate-spin" />
-            : <LogOut size={16} strokeWidth={1.5} />
+            ? <Loader2 size={20} strokeWidth={1.5} className="animate-spin" />
+            : <LogOut size={20} strokeWidth={1.5} />
           }
           {loggingOut ? "Keluar..." : "Keluar dari Akun"}
         </button>
